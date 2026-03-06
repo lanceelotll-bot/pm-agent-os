@@ -69,7 +69,9 @@ docs/
 - `docs/user-guide.zh-CN.md`：给非技术背景用户的使用说明
 - `scripts/pm_prompt.py`：一键生成并复制恢复/收尾提示词
 - `templates/personal-memory.template.md`：个人长期记忆模板
+- `templates/personal-memory.zh-CN.template.md`：个人长期记忆中文填写模板
 - `templates/team-context.template.md`：team 上下文模板
+- `templates/team-context.zh-CN.template.md`：team 上下文中文填写模板
 - `templates/task-brief.template.md`：标准任务简报模板
 - `templates/handoff.template.md`：交接模板
 - `templates/session-bootstrap-prompt.template.md`：会话续接提示模板
