@@ -19,9 +19,15 @@
 文件位置：
 `/Users/wamg/.codex/memories/memory.md`
 
+不会写时，直接参考这个中文模板：
+[个人记忆中文模板](../templates/personal-memory.zh-CN.template.md)
+
 2. 打开并填写你当前 team 的信息  
 文件位置：
 `/Users/wamg/Documents/monthly/context/team-context.md`
+
+不会写时，直接参考这个中文模板：
+[team 上下文中文模板](../templates/team-context.zh-CN.template.md)
 
 不用写很复杂，先随便写个最小版本也可以。
 
