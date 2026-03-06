@@ -1,0 +1,7 @@
+interface:
+  display_name: "PM Agent OS"
+  short_description: "Cross-team PM continuity and routing"
+  default_prompt: "Use $pm-agent-os to load my PM context pack, route the task, and continue the work."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,9 @@
+.DS_Store
+
+# Live, user-specific context should stay local.
+context/team-context.md
+handoffs/current.md
+tasks/active/current.md
+
+# Local exports
+exports/

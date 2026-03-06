@@ -1,0 +1,45 @@
+version: "1"
+
+profile:
+  owner: "your-name"
+  role: "product-manager"
+  default_language: "zh-CN"
+
+loading_order:
+  - "global_memory"
+  - "team_context"
+  - "current_handoff"
+  - "active_task"
+
+sources:
+  global_memory:
+    path: "~/.codex/memories/memory.md"
+    required: false
+  team_context:
+    path: "context/team-context.md"
+    required: false
+  current_handoff:
+    path: "handoffs/current.md"
+    required: false
+  active_task:
+    path: "tasks/active/current.md"
+    required: false
+
+routing_defaults:
+  default_lead_agent: "PM Orchestrator"
+  auto_include_agents:
+    - "Memory Curator"
+  continuity_triggers:
+    - "continue"
+    - "resume"
+    - "handoff"
+    - "switch team"
+    - "what changed"
+
+output_contract:
+  sections:
+    - "conclusion"
+    - "assumptions"
+    - "open questions"
+    - "next actions"
+    - "memory updates required"
