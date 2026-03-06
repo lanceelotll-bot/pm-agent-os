@@ -6,6 +6,7 @@ Use the portable context pack as the source of truth.
 
 - `~/.codex/memories/memory.md`
 - `context/team-context.md`
+- `context/history-highlights.md`
 - `handoffs/current.md`
 - `tasks/active/current.md`
 - `context/context-manifest.yaml`
@@ -16,6 +17,7 @@ Each file has a different stability level:
 
 - global memory changes rarely
 - team context changes when teams or team knowledge change
+- history highlights change only when a conclusion should survive future sessions
 - handoff changes often
 - active task changes per task
 

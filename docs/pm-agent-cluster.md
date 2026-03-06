@@ -126,6 +126,19 @@ Meaning:
 
 That is a possible phase-two architecture, but it needs a wrapper or router layer.
 
+## Current baseline vs phase two
+
+| Dimension | Current baseline | Phase two |
+| --- | --- | --- |
+| Cluster shape | logical cluster | orchestrated cluster |
+| Window shape | one window with multiple logical roles | multiple models and roles can be distributed |
+| Model routing | no automatic cross-model routing | role-based model routing |
+| Cross-platform flow | manual or semi-manual context-pack handoff | wrapper or router auto-injects context |
+| File access | Codex can read local files; external clients usually cannot | external clients can read through a connector layer |
+| Write-back loop | preferred write-back happens in Codex close flow | orchestration layer can write back centrally |
+| Automation level | lightweight but already usable | more automated and more swarm-like |
+| Best fit | use now | add only when manual switching becomes real friction |
+
 ## Department view
 
 ### Control plane

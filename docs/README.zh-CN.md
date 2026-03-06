@@ -4,6 +4,14 @@
 
 这个目录里的文档，建议按下面顺序阅读。
 
+如果你只是实际使用，不需要看很多文档。
+
+大多数情况下，只看这 3 个就够了：
+
+- [最小白快速开始](quick-start.zh-CN.md)
+- [非技术背景使用说明](user-guide.zh-CN.md)
+- [PM Agent 集群设计（中文版）](pm-agent-cluster.zh-CN.md)
+
 ## 第一次使用
 
 - [最小白快速开始](quick-start.zh-CN.md)
@@ -17,6 +25,8 @@
   - 解释为什么这套系统不依赖平台原生记忆
 - [平台适配说明](platform-adapters.md)
   - 解释 Codex、Claude、Kimi、Qwen、GPT 的接入差异
+- [团队接入指南](team-onboarding.zh-CN.md)
+  - 解释其他用户如何继承这套设计，以及 skill 在哪里是可选增强
 
 ## Agent 集群设计
 

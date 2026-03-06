@@ -12,8 +12,7 @@
 - [最小白快速开始](docs/quick-start.zh-CN.md)
 - [非技术背景使用说明](docs/user-guide.zh-CN.md)
 - [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
-
-**补充文档**
+- [团队接入指南](docs/team-onboarding.zh-CN.md)
 
 这是一个面向产品经理的可复用工作系统，目标是在频繁切换 team、切换会话、切换模型平台时，仍然保持对话、记忆和执行的连续性。
 
@@ -100,6 +99,7 @@ docs/
 - [最小白快速开始](docs/quick-start.zh-CN.md)：第一次使用优先看这个
 - [非技术背景使用说明](docs/user-guide.zh-CN.md)：想理解原理和使用方式时看这个
 - [PM Agent 集群设计（中文版）](docs/pm-agent-cluster.zh-CN.md)：想理解角色分工和执行场景时看这个
+- [团队接入指南](docs/team-onboarding.zh-CN.md)：想让其他人继承这套设计时看这个
 - [文档导航](docs/README.zh-CN.md)：其他补充文档入口
 - [平台适配说明](docs/platform-adapters.md)：不同平台如何接入
 - [跨平台记忆协议](docs/cross-platform-memory-protocol.md)：连续性协议说明
