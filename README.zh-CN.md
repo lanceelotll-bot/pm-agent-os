@@ -2,6 +2,8 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
+[非技术背景使用说明](docs/user-guide.zh-CN.md)
+
 这是一个面向产品经理的可复用工作系统，目标是在频繁切换 team、切换会话、切换模型平台时，仍然保持对话、记忆和执行的连续性。
 
 ## 这个仓库解决什么问题
@@ -65,6 +67,7 @@ docs/
 
 - `docs/pm-agent-cluster.md`：产品经理 agent 集群设计
 - `docs/platform-adapters.md`：不同平台的接入方式
+- `docs/user-guide.zh-CN.md`：给非技术背景用户的使用说明
 - `templates/personal-memory.template.md`：个人长期记忆模板
 - `templates/team-context.template.md`：team 上下文模板
 - `templates/task-brief.template.md`：标准任务简报模板
