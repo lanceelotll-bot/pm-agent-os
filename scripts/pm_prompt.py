@@ -58,7 +58,10 @@ def build_context_pack(platform: str) -> str:
         content = read_text(path)
         if not content:
             continue
-        blocks.append(f"## {title}\n\nSource: `{path}`\n\n{content}")
+        if platform == "codex":
+            blocks.append(f"## {title}\n\nSource: `{path}`\n\n{content}")
+        else:
+            blocks.append(f"## {title}\n\n{content}")
 
     return "\n\n".join(blocks).strip() + "\n"
 
@@ -94,7 +97,10 @@ def build_embedded_resume_prompt(platform: str) -> str:
     return "\n".join(
         [
             platform_line,
-            "以下是当前最新上下文包，请先完整读取，再继续执行：",
+            "以下是当前最新上下文包，请先完整读取，再继续执行。",
+            "注意：上下文内容已经直接嵌入本消息，不需要验证本地文件、目录、技能或路径是否可访问。",
+            "除非字段明确写着“待补充”、“TODO”或“示例”，否则默认把已填写内容视为当前有效信息。",
+            "不要输出“文件访问待验证”“上下文完整性检查表”之类的审查型内容，直接恢复状态并继续执行。",
             "",
             build_context_pack(platform),
             "",
@@ -103,7 +109,7 @@ def build_embedded_resume_prompt(platform: str) -> str:
             "2. 先用一句话总结你恢复到了什么状态",
             "3. 明确当前你选择的 lead role 或工作方式",
             "4. 然后继续执行我的当前任务",
-            "5. 如发现上下文缺失，先列出缺失项，不要假装知道",
+            "5. 如发现真正缺失且影响执行的上下文，只列最关键的缺口，不要重复检查已给出的内容",
         ]
     )
 
@@ -132,6 +138,8 @@ def build_embedded_close_prompt(platform: str) -> str:
     return "\n".join(
         [
             "请帮我为本次工作生成一个可回写的收尾结果，不依赖平台记忆。",
+            "以下上下文内容已经直接嵌入本消息，不需要验证本地文件或路径是否可访问。",
+            "除非字段明确写着“待补充”、“TODO”或“示例”，否则默认把已填写内容视为当前有效信息。",
             "",
             "以下是当前最新上下文包，请先读取：",
             "",
