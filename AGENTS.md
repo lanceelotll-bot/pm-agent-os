@@ -9,8 +9,9 @@ For any non-trivial task, read context in this order:
 1. `context/context-manifest.yaml` if present
 2. `~/.codex/memories/memory.md` if present
 3. `context/team-context.md` if present
-4. `handoffs/current.md` if present
-5. the active task brief if the user references one
+4. `context/history-highlights.md` if present
+5. `handoffs/current.md` if present
+6. the active task brief if the user references one
 
 If `context/context-manifest.yaml` exists, treat it as the canonical loading order and output contract.
 

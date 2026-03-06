@@ -8,6 +8,7 @@ profile:
 loading_order:
   - "global_memory"
   - "team_context"
+  - "history_highlights"
   - "current_handoff"
   - "active_task"
 
@@ -17,6 +18,9 @@ sources:
     required: false
   team_context:
     path: "context/team-context.md"
+    required: false
+  history_highlights:
+    path: "context/history-highlights.md"
     required: false
   current_handoff:
     path: "handoffs/current.md"

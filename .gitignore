@@ -2,6 +2,7 @@
 
 # Live, user-specific context should stay local.
 context/team-context.md
+context/history-highlights.md
 handoffs/current.md
 tasks/active/current.md
 

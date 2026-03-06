@@ -11,6 +11,7 @@ from typing import Iterable
 SECTION_SPECS = [
     ("Global Memory", Path("~/.codex/memories/memory.md").expanduser()),
     ("Team Context", Path("context/team-context.md")),
+    ("History Highlights", Path("context/history-highlights.md")),
     ("Current Handoff", Path("handoffs/current.md")),
     ("Active Task", Path("tasks/active/current.md")),
 ]

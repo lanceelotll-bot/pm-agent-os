@@ -17,11 +17,13 @@
    将长期稳定的个人上下文放在 `~/.codex/memories/memory.md`。
 2. Team 上下文
    将 team 专属信息放在仓库内，基于 `templates/team-context.template.md` 生成。
-3. 任务简报
+3. 历史精华
+   将长期有价值的历史对话结论和共识压缩到 `context/history-highlights.md`。
+4. 任务简报
    对于非 trivial 的任务，创建一个简短的 task packet。
-4. 交接状态
+5. 交接状态
    每次工作结束时更新当前 handoff 文件。
-5. Manifest
+6. Manifest
    如果你希望跨模型、跨平台都使用同一套加载规则，使用 `templates/context-manifest.template.yaml`。
 
 ## 推荐的团队仓库结构
@@ -30,6 +32,8 @@
 context/
   team-context.md
   team-context.example.md
+  history-highlights.md
+  history-highlights.example.md
 handoffs/
   current.md
   current.example.md
@@ -45,11 +49,12 @@ docs/
 
 1. 先填写 `templates/personal-memory.template.md`，然后将结果保存到 `~/.codex/memories/memory.md`。
 2. 每加入一个新 team，就基于 `templates/team-context.template.md` 创建 `context/team-context.md`。
-3. 每遇到一个较大的任务，就基于 `templates/task-brief.template.md` 创建任务简报。
-4. 每次工作结束时，用 `templates/handoff.template.md` 更新 `handoffs/current.md`。
-5. 下次开始工作时，使用 `templates/session-bootstrap-prompt.template.md` 中的启动提示。
-6. 在 Codex 兼容环境中，可以用 `AGENTS.md` 作为同平台自动加载策略。
-7. 如果要上传到 Git，请只提交 `.example` 文件、模板、文档和脚本，运行态文件保留在本地。
+3. 当形成长期仍有价值的历史结论时，更新 `context/history-highlights.md`。
+4. 每遇到一个较大的任务，就基于 `templates/task-brief.template.md` 创建任务简报。
+5. 每次工作结束时，用 `templates/handoff.template.md` 更新 `handoffs/current.md`，必要时同步更新 `context/history-highlights.md`。
+6. 下次开始工作时，使用 `templates/session-bootstrap-prompt.template.md` 中的启动提示。
+7. 在 Codex 兼容环境中，可以用 `AGENTS.md` 作为同平台自动加载策略。
+8. 如果要上传到 Git，请只提交 `.example` 文件、模板、文档和脚本，运行态文件保留在本地。
 
 ## 实践原则
 
@@ -58,7 +63,7 @@ docs/
 ## Git 使用约定
 
 - 提交模板、文档、脚本、skill 和 `.example` 上下文文件。
-- 把 `context/team-context.md`、`handoffs/current.md` 和 `tasks/active/current.md` 留在本地。
+- 把 `context/team-context.md`、`context/history-highlights.md`、`handoffs/current.md` 和 `tasks/active/current.md` 留在本地。
 - 克隆仓库后，基于 `.example` 文件或模板创建自己的 live 文件。
 
 ## 仓库中的关键文件
@@ -72,6 +77,7 @@ docs/
 - `templates/personal-memory.zh-CN.template.md`：个人长期记忆中文填写模板
 - `templates/team-context.template.md`：team 上下文模板
 - `templates/team-context.zh-CN.template.md`：team 上下文中文填写模板
+- `templates/history-highlights.zh-CN.template.md`：历史精华中文填写模板
 - `templates/task-brief.template.md`：标准任务简报模板
 - `templates/handoff.template.md`：交接模板
 - `templates/session-bootstrap-prompt.template.md`：会话续接提示模板

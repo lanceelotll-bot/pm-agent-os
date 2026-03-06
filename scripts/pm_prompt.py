@@ -18,6 +18,7 @@ ACTIVE_TASK = WORKSPACE / "tasks" / "active" / "current.md"
 SECTION_SPECS = [
     ("Global Memory", GLOBAL_MEMORY),
     ("Team Context", TEAM_CONTEXT),
+    ("History Highlights", WORKSPACE / "context" / "history-highlights.md"),
     ("Current Handoff", HANDOFF),
     ("Active Task", ACTIVE_TASK),
 ]
@@ -73,12 +74,14 @@ def build_codex_resume_prompt() -> str:
             "",
             str(GLOBAL_MEMORY),
             str(TEAM_CONTEXT),
+            str(WORKSPACE / "context" / "history-highlights.md"),
             str(HANDOFF),
             str(ACTIVE_TASK),
             "",
             "要求：",
             "1. 不把平台内记忆当主来源",
             "2. 先用一句话总结你恢复到了什么状态",
+            "3. 先给我 3-5 条历史精华摘要，说明你继承了哪些长期信息",
             "3. 明确当前你选择的 lead agent 和可选 support agents",
             "4. 然后继续执行我的当前任务",
             "5. 如发现上下文缺失，先列出缺失项，不要假装知道",
@@ -109,9 +112,10 @@ def build_embedded_resume_prompt(platform: str) -> str:
             "要求：",
             "1. 不把平台内记忆当主来源",
             "2. 先用一句话总结你恢复到了什么状态",
-            "3. 明确当前你选择的 lead role 或工作方式",
-            "4. 然后继续执行我的当前任务",
-            "5. 如发现真正缺失且影响执行的上下文，只列最关键的缺口，不要重复检查已给出的内容",
+            "3. 先给我 3-5 条历史精华摘要，说明你继承了哪些长期信息",
+            "4. 明确当前你选择的 lead role 或工作方式",
+            "5. 然后继续执行我的当前任务",
+            "6. 如发现真正缺失且影响执行的上下文，只列最关键的缺口，不要重复检查已给出的内容",
         ]
     )
 
@@ -124,14 +128,16 @@ def build_codex_close_prompt() -> str:
             "请先读取并在必要时更新以下文件：",
             "",
             str(HANDOFF),
+            str(WORKSPACE / "context" / "history-highlights.md"),
             str(TEAM_CONTEXT),
             str(GLOBAL_MEMORY),
             "",
             "要求：",
             "1. 优先更新 handoffs/current.md，写清楚当前状态、下一步、风险和阻塞",
-            "2. 只有在 team 知识确实变化时才更新 context/team-context.md",
-            "3. 只有在我的长期偏好真的变化时才更新 ~/.codex/memories/memory.md",
-            "4. 更新后，用 5 条以内总结本次写入了什么",
+            "2. 如果本次形成了跨会话仍有价值的结论、共识、已否决方案或平台经验，就更新 context/history-highlights.md",
+            "3. 只有在 team 知识确实变化时才更新 context/team-context.md",
+            "4. 只有在我的长期偏好真的变化时才更新 ~/.codex/memories/memory.md",
+            "5. 更新后，用 5 条以内总结本次写入了什么",
         ]
     )
 
@@ -150,9 +156,10 @@ def build_embedded_close_prompt(platform: str) -> str:
             "",
             "要求：",
             "1. 生成一版新的 handoff 内容，格式尽量贴近 handoffs/current.md",
-            "2. 如果有 team 层面的新增信息，再额外给出 team-context 更新建议",
-            "3. 如果没有长期偏好变化，不要建议修改 global memory",
-            "4. 最后给出一个可直接复制回本地文件的版本",
+            "2. 如果本次形成了跨会话仍有价值的结论、共识、已否决方案或平台经验，再额外给出 history-highlights 更新建议",
+            "3. 如果有 team 层面的新增信息，再额外给出 team-context 更新建议",
+            "4. 如果没有长期偏好变化，不要建议修改 global memory",
+            "5. 最后给出一个可直接复制回本地文件的版本",
         ]
     )
 
