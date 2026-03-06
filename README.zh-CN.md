@@ -1,6 +1,6 @@
 # PM Agent OS
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [最小白快速开始](docs/quick-start.zh-CN.md) | [非技术背景使用说明](docs/user-guide.zh-CN.md)
+[English](README.md) | [简体中文](README.zh-CN.md) | [文档导航](docs/README.zh-CN.md) | [最小白快速开始](docs/quick-start.zh-CN.md) | [非技术背景使用说明](docs/user-guide.zh-CN.md) | [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
 
 这是一个面向产品经理的可复用工作系统，目标是在频繁切换 team、切换会话、切换模型平台时，仍然保持对话、记忆和执行的连续性。
 
@@ -82,14 +82,20 @@ docs/
 - 把 `context/team-context.md`、`context/history-highlights.md`、`handoffs/current.md` 和 `tasks/active/current.md` 留在本地。
 - 克隆仓库后，基于 `.example` 文件或模板创建自己的 live 文件。
 
-## 仓库中的关键文件
+## 文档入口
 
-- `docs/pm-agent-cluster.md`：产品经理 agent 集群设计（英文版）
-- `docs/pm-agent-cluster.zh-CN.md`：产品经理 agent 集群设计（中文版）
-- `docs/platform-adapters.md`：不同平台的接入方式
-- `docs/quick-start.zh-CN.md`：最小白快速开始
-- `docs/user-guide.zh-CN.md`：给非技术背景用户的使用说明
+- [文档导航](docs/README.zh-CN.md)：所有文档的总入口
+- [最小白快速开始](docs/quick-start.zh-CN.md)：最快上手路径
+- [非技术背景使用说明](docs/user-guide.zh-CN.md)：系统原理和使用方式
+- [PM Agent 集群设计（中文版）](docs/pm-agent-cluster.zh-CN.md)：部门视图和执行场景图
+- [PM Agent Cluster (English)](docs/pm-agent-cluster.md)：英文版集群设计
+- [平台适配说明](docs/platform-adapters.md)：不同平台如何接入
+- [跨平台记忆协议](docs/cross-platform-memory-protocol.md)：连续性协议说明
+
+## 脚本与模板
+
 - `scripts/pm_prompt.py`：一键生成并复制恢复/收尾提示词
+- `scripts/build_context_pack.py`：把当前状态导出为一个可跨平台使用的上下文包
 - `templates/personal-memory.template.md`：个人长期记忆模板
 - `templates/personal-memory.zh-CN.template.md`：个人长期记忆中文填写模板
 - `templates/team-context.template.md`：team 上下文模板
@@ -100,7 +106,8 @@ docs/
 - `templates/session-bootstrap-prompt.template.md`：会话续接提示模板
 - `templates/platform-prompts/`：Codex、Claude、Kimi 的平台适配提示
 - `templates/context-manifest.template.yaml`：统一上下文加载契约
-- `docs/cross-platform-memory-protocol.md`：跨平台记忆协议
+
+## 运行与工作区
+
 - `AGENTS.md`：工作区级别自动加载策略
 - `skills/pm-agent-os/`：可复用的 Codex skill 包
-- `scripts/build_context_pack.py`：把当前状态导出为一个可跨平台使用的上下文包

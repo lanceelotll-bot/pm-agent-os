@@ -1,6 +1,6 @@
 # PM Agent OS
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [Quick Start (CN)](docs/quick-start.zh-CN.md) | [User Guide](docs/user-guide.zh-CN.md)
+[English](README.md) | [简体中文](README.zh-CN.md) | [Docs Hub](docs/README.md) | [Quick Start (CN)](docs/quick-start.zh-CN.md) | [User Guide](docs/user-guide.zh-CN.md) | [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
 
 This workspace contains a reusable operating model for a product manager who may switch teams often and still wants continuity across conversations, memory, and execution.
 
@@ -61,11 +61,20 @@ Do not rely on chat history as the source of truth. Treat chat as execution spac
 - Keep `context/team-context.md`, `handoffs/current.md`, and `tasks/active/current.md` local.
 - Copy from `.example` files after cloning, or create new live files from the templates.
 
-## Files in this workspace
+## Documentation entry points
 
-- `docs/pm-agent-cluster.md`: the PM-oriented agent cluster design (English)
-- `docs/pm-agent-cluster.zh-CN.md`: the PM-oriented agent cluster design (Chinese)
-- `docs/platform-adapters.md`: platform-specific startup guidance
+- [Docs Hub](docs/README.md): top-level index for the docs folder
+- [Quick Start (CN)](docs/quick-start.zh-CN.md): fastest path to start using the system
+- [User Guide (CN)](docs/user-guide.zh-CN.md): plain-language explanation
+- [PM Agent Cluster (English)](docs/pm-agent-cluster.md): English cluster design
+- [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md): Chinese cluster design
+- [Platform adapters](docs/platform-adapters.md): platform-specific startup guidance
+- [Cross-platform memory protocol](docs/cross-platform-memory-protocol.md): continuity protocol
+
+## Scripts and templates
+
+- `scripts/pm_prompt.py`: generate and copy resume/close prompts
+- `scripts/build_context_pack.py`: export the current state into one portable prompt pack
 - `templates/personal-memory.template.md`: durable self-context template
 - `templates/team-context.template.md`: per-team context template
 - `templates/task-brief.template.md`: standard task packet
@@ -73,7 +82,8 @@ Do not rely on chat history as the source of truth. Treat chat as execution spac
 - `templates/session-bootstrap-prompt.template.md`: prompt for seamless continuation
 - `templates/platform-prompts/`: adapter prompts for Codex, Claude, and Kimi
 - `templates/context-manifest.template.yaml`: portable loading contract
-- `docs/cross-platform-memory-protocol.md`: cross-platform continuity design
+
+## Workspace behavior
+
 - `AGENTS.md`: workspace-level auto-load policy
 - `skills/pm-agent-os/`: reusable skill package for Codex-style invocation
-- `scripts/build_context_pack.py`: export the current state into a single portable prompt pack
