@@ -1,6 +1,6 @@
 # PM Agent OS
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+[English](README.md) | [简体中文](README.zh-CN.md) | [User Guide](docs/user-guide.zh-CN.md)
 
 This workspace contains a reusable operating model for a product manager who may switch teams often and still wants continuity across conversations, memory, and execution.
 
