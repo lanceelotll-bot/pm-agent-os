@@ -146,6 +146,63 @@ AI 每次开始工作前，先看这几张卡，再继续做事。
 
 但要注意，这里多做的一步，也只是“提供当前状态”，不是“重讲一遍所有历史”。
 
+## 用户成本最低的用法
+
+如果你追求最低操作成本，不要自己找文件、不要手工拼提示词。
+
+直接用仓库里的脚本：
+
+```bash
+cd /Users/wamg/Documents/monthly
+./scripts/pm_prompt.py --platform codex --mode resume --copy
+./scripts/pm_prompt.py --platform kimi --mode resume --copy
+./scripts/pm_prompt.py --platform claude --mode resume --copy
+./scripts/pm_prompt.py --platform qwen --mode resume --copy
+```
+
+这几条命令会直接生成并复制一段“可粘贴恢复提示词”到剪贴板。
+
+你只需要：
+
+1. 运行一条命令
+2. 打开目标模型
+3. 粘贴
+
+### 收尾时怎么做
+
+如果你想在结束工作时尽量低成本地更新状态，也可以直接用：
+
+```bash
+cd /Users/wamg/Documents/monthly
+./scripts/pm_prompt.py --platform codex --mode close --copy
+```
+
+然后把它贴给 Codex。
+
+如果你是在 Claude、Kimi、千问里工作，也可以用对应平台：
+
+```bash
+./scripts/pm_prompt.py --platform claude --mode close --copy
+./scripts/pm_prompt.py --platform kimi --mode close --copy
+./scripts/pm_prompt.py --platform qwen --mode close --copy
+```
+
+区别是：
+
+- `codex + close` 可以直接要求它更新本地文件
+- 其他平台一般只能先生成一版 handoff，再由你或 Codex 回写到本地
+
+### 这是不是自动更新
+
+最现实的答案是：
+
+- 同一工作区内，可以做到“半自动”
+- 跨平台网页聊天，通常不能真正自动写你电脑上的本地文件
+
+所以最低成本方案不是“完全自动”，而是“一键复制 + 一键粘贴”。
+
+这已经比手工找文件、手工拼上下文稳定得多。
+
 ## skill 是什么
 
 可以把 skill 理解成一份“岗位说明书”。
