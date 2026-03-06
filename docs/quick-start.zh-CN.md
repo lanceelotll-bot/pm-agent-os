@@ -124,6 +124,7 @@ cd /Users/wamg/Documents/monthly
 ## 如果你换了模型
 
 你不用手工找文件，也不用手工导出。
+也不需要先安装 Git skill。
 
 只需要换一条命令：
 
