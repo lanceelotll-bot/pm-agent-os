@@ -1,13 +1,17 @@
 # PM Agent Cluster
 
-This design assumes one orchestrator plus a small set of specialist agents. The goal is not to maximize the number of agents. The goal is to reduce switching cost, make outputs predictable, and preserve continuity when teams change.
+This cluster is designed for an internet product manager who needs continuity across team switches, model switches, and new sessions, while still handling light technical work inside the same system.
 
-## Design principles
+It is inspired by department-style agent catalogs, but it stays intentionally lean. The goal is not to activate dozens of agents at once. The goal is to make routing obvious: who leads, who supports, when to use them, and what must be written back into memory.
 
-- One control plane, many specialist agents
+## Design goals
+
+- One control plane, many specialists
+- Department-style agent layout
 - Shared memory contract across all agents
-- Standard input packet and standard output packet
-- Small-code tasks stay inside the cluster instead of creating a separate engineering workflow
+- One lead agent plus up to two support agents by default
+- Small analytics and code tasks stay inside the cluster
+- Durable decisions always flow back into handoff or history
 
 ## Shared memory contract
 
@@ -16,71 +20,168 @@ All agents should read from the same layers when available:
 1. Global memory
    Personal working style, preferences, and durable context
 2. Team context
-   Product, users, metrics, stakeholders, constraints, glossary
-3. Current handoff
+   Product, users, metrics, stakeholders, constraints, roadmap
+3. History highlights
+   Compressed long-term dialogue memory and durable decisions
+4. Current handoff
    Latest status, next actions, blockers, changed assumptions
-4. Task brief
+5. Task brief
    The goal, constraints, expected output, deadline, and success metric
 
-## Agent roster
+## Operating model
 
-| Agent | Strength | When to use | Typical output | Reads |
+- Every new request starts with `PM Orchestrator`
+- `Memory Curator` is mandatory for resume, switch, and close flows
+- Default routing is one lead agent plus up to two support agents
+- Do not activate the full roster unless the work really needs it
+- Any new durable decision, commitment, or process learning should end with a memory update
+
+## Execution scenarios
+
+### Scenario 1: all work stays inside one platform
+
+Current baseline does not automatically dispatch work across multiple models. Inside one platform, the cluster works as one window with one active model and multiple logical roles.
+
+```mermaid
+flowchart LR
+    U["User request"] --> O["PM Orchestrator"]
+
+    subgraph S["Single platform / single window"]
+        O --> MC["Memory Curator"]
+        O --> P["PRD Architect"]
+        O --> L["Launch & Delivery Coordinator"]
+        O --> M["Metrics Analyst"]
+        O --> C["Content & Recommendation Strategist"]
+        O --> T["Technical Copilot"]
+    end
+```
+
+#### 1A. All inside Codex
+
+```mermaid
+flowchart LR
+    F["Local files<br/>memory / team / history / handoff"] --> O["PM Orchestrator in Codex"]
+    U["User request"] --> O
+    O --> R["Selected logical roles<br/>inside the same Codex window"]
+    R --> A["One final answer"]
+    R --> W["Close flow / write-back"]
+    W --> F
+```
+
+Meaning:
+
+- one Codex window
+- one active model
+- many logical roles
+- Codex can usually read local files directly
+- Codex can usually update local files during close
+
+#### 1B. All inside Claude
+
+```mermaid
+flowchart LR
+    P["Embedded context pack"] --> O["PM Orchestrator in Claude"]
+    U["User request"] --> O
+    O --> R["Selected logical roles<br/>inside the same Claude window"]
+    R --> A["One final answer"]
+    R --> H["Suggested handoff / history updates"]
+```
+
+Meaning:
+
+- one Claude window
+- one active model
+- many logical roles
+- Claude continues from pasted context, not from direct local file access
+- Claude can suggest updates, but Codex is still the preferred place to write back local files
+
+### Scenario 2: cross-platform continuation
+
+Current baseline also does not auto-call another platform. Cross-platform continuity happens through shared state files plus one-click prompt generation.
+
+```mermaid
+flowchart LR
+    F["Local state files<br/>memory / team / history / handoff / task"] --> S["pm_prompt.py"]
+    S --> C["Copy prompt"]
+    C --> X["Paste into Claude / Kimi / Qwen / GPT"]
+    X --> O["Work output<br/>analysis / PRD / critique / draft handoff"]
+    O --> R["Return to Codex close flow"]
+    R --> F
+```
+
+Meaning:
+
+- local files stay the source of truth
+- other platforms receive embedded context, not hidden file access
+- cross-platform continuation is manual or semi-manual in the current baseline
+- the preferred closing loop is still: return to Codex and write back durable updates
+
+### What is not implemented yet
+
+- no automatic multi-model routing such as `GPT-5.4 for planning -> Claude for critique -> Codex for write-back`
+- no platform-to-platform direct calling
+- no always-on background swarm
+
+That is a possible phase-two architecture, but it needs a wrapper or router layer.
+
+## Department view
+
+### Control plane
+
+| Agent | Specialty | When to use | Typical output | Reads |
 | --- | --- | --- | --- | --- |
-| PM Orchestrator | task framing, routing, synthesis | any new request, ambiguous work, multi-step work | execution plan, routed workflow, final synthesis | all layers |
-| Memory Curator | continuity, context hygiene, handoff updates | resume work, switch teams, close a session, update durable context | memory updates, handoff snapshot, missing-context checklist | all layers |
-| Trend Researcher | market scan, competitor review, opportunity framing | market research, trend watch, competitor teardown, landscape mapping | market brief, opportunity map, implications | global, team, task |
-| Feedback Synthesizer | user feedback clustering and insight extraction | interview notes, tickets, app reviews, support logs, survey text | pain-point clusters, user themes, evidence summary | team, task |
-| Metrics Analyst | KPI tree, funnel diagnosis, metric reading | growth issues, retention drop, funnel questions, metric review | KPI diagnosis, hypotheses, instrumentation gaps | team, task |
-| Prioritization Planner | RICE, impact-effort, roadmap sorting | backlog sorting, sprint planning, tradeoff decisions | ranked list, rationale, suggested sequencing | team, handoff, task |
-| PRD Architect | problem framing, scope writing, acceptance definition | new features, iterative specs, requirement docs | PRD, user stories, acceptance criteria, edge cases | team, task |
-| Experiment Designer | growth loop, A/B plan, learning agenda | growth ideas, onboarding optimization, conversion work | experiment plan, variants, success criteria, guardrails | team, task |
-| Delivery Coordinator | plan tracking, risk management, alignment | execution follow-up, launch prep, dependency tracking | delivery plan, risk list, owner list, milestones | team, handoff, task |
-| UX Reviewer | flow review, interaction critique, usability risk | review flows, copy, empty states, onboarding, IA | UX risk list, flow improvements, content fixes | team, task |
-| Technical Copilot | light code, SQL, scripts, API thinking, implementation review | metrics SQL, scripts, small UI changes, API review, technical validation | SQL, scripts, technical notes, implementation checklist | team, task |
+| PM Orchestrator | task framing, routing, synthesis, final judgement | any new request, ambiguous work, multi-step work, cross-agent coordination | execution plan, routed workflow, final synthesis | all layers |
+| Memory Curator | continuity, context hygiene, handoff and history updates | resume work, switch teams, switch models, close a session, update durable context | handoff update, history update, missing-context list, continuity summary | all layers |
+
+### Product department
+
+| Agent | Specialty | When to use | Typical output | Reads |
+| --- | --- | --- | --- | --- |
+| PRD Architect | problem framing, scope writing, acceptance definition, edge-case handling | new features, iteration specs, requirement docs, redesign scope | PRD, user stories, acceptance criteria, edge cases | team, task |
+| Prioritization Planner | sequencing, tradeoff framing, roadmap sorting | backlog sorting, sprint planning, scope cuts, stakeholder tradeoff review | ranked options, rationale, sequencing proposal | team, handoff, task |
+| Launch & Delivery Coordinator | launch readiness, dependency tracking, release risk, milestone alignment | iOS/Android/Web launch prep, release follow-up, cross-team execution risk | launch checklist, risk register, owner matrix, milestone plan | team, handoff, task |
+
+### Insight department
+
+| Agent | Specialty | When to use | Typical output | Reads |
+| --- | --- | --- | --- | --- |
+| Insight Synthesizer | competitor scan, feedback clustering, market and user signal synthesis | competitor teardown, app reviews, support logs, interview notes, Discord or email feedback | insight brief, pain-point clusters, opportunity map, evidence summary | global, team, task |
+| Metrics Analyst | KPI tree, funnel diagnosis, metric reading, instrumentation gaps | retention issues, upload or publish funnel questions, playback metrics, KPI review | KPI diagnosis, hypotheses, metric definitions, tracking gaps | team, task |
+| Content & Recommendation Strategist | content supply-demand loop design, search and recommendation strategy, content taxonomy | recommendation tuning, hashtag strategy, search optimization, creator-consumer loop design, distribution issues | content strategy memo, ranking hypotheses, taxonomy proposals, recommendation actions | team, task |
+
+### Experience and growth department
+
+| Agent | Specialty | When to use | Typical output | Reads |
+| --- | --- | --- | --- | --- |
+| UX Reviewer | flow critique, interaction review, IA, copy, usability risk | onboarding, upload flow, player flow, search flow, empty states, UX polish review | UX risk list, flow improvements, copy fixes | team, task |
+| Experiment Designer | A/B planning, learning agenda, growth lever design | activation work, retention experiments, conversion experiments, feature validation | experiment plan, variants, guardrails, success criteria | team, task |
+| ASO & Growth Strategist | app store positioning, listing optimization, launch channel fit | iOS or Android launch, discoverability work, store conversion optimization | ASO checklist, metadata ideas, store experiments, launch recommendations | team, task |
+
+### Technical support department
+
+| Agent | Specialty | When to use | Typical output | Reads |
+| --- | --- | --- | --- | --- |
+| Technical Copilot | SQL, scripts, instrumentation, API thinking, implementation review, light code | tracking design, data pulls, API review, small scripts, technical validation, small code tasks | SQL, scripts, technical notes, implementation checklist | team, task |
 
 ## Recommended starter cluster
 
-Do not start with all agents active by default. For a product manager handling internet product work plus light technical tasks, the best starting set is:
+Do not start with the full department view active. For your current context, the best default cluster is:
 
 - PM Orchestrator
 - Memory Curator
-- Trend Researcher
-- Feedback Synthesizer
-- Prioritization Planner
 - PRD Architect
-- Technical Copilot
-
-Add the rest only when the work volume justifies them:
-
-- add `Metrics Analyst` when KPI and funnel analysis becomes frequent
-- add `Experiment Designer` when growth experimentation is a core motion
-- add `Delivery Coordinator` when cross-team execution risk becomes high
-- add `UX Reviewer` when flows and interaction quality need dedicated review
-
-## Recommended department view
-
-### Control layer
-
-- PM Orchestrator
-- Memory Curator
-
-### Insight layer
-
-- Trend Researcher
-- Feedback Synthesizer
+- Launch & Delivery Coordinator
+- Insight Synthesizer
 - Metrics Analyst
-
-### Planning layer
-
-- Prioritization Planner
-- PRD Architect
-- Experiment Designer
-
-### Delivery layer
-
-- Delivery Coordinator
-- UX Reviewer
+- Content & Recommendation Strategist
 - Technical Copilot
+
+Add the rest only when the work clearly justifies them:
+
+- add `Prioritization Planner` when backlog tradeoffs need explicit ranking or stakeholder negotiation
+- add `UX Reviewer` when flow quality, IA, or copy is under review
+- add `Experiment Designer` when you are running deliberate growth or learning experiments
+- add `ASO & Growth Strategist` when store listing and app discoverability become active workstreams
 
 ## Routing rules
 
@@ -90,76 +191,94 @@ Every request starts with `PM Orchestrator`. It decides:
 
 - whether the task is single-agent or multi-agent
 - which agent leads
-- which two support agents, if any, should join
-- what memory files must be read first
+- which support agents, if any, should join
+- what memory layers must be read first
 
 ### Rule 2
 
-Any request that mentions "continue", "resume", "handoff", "switch team", "pick up where we left off", or "what changed" must also invoke `Memory Curator`.
+Any request that mentions `continue`, `resume`, `handoff`, `switch team`, `switch model`, `pick up where we left off`, or `what changed` must also invoke `Memory Curator`.
 
 ### Rule 3
 
-Any request that produces a new product decision, roadmap change, metric definition, or stakeholder commitment must end with a `Memory Curator` update.
+Any request about launch, release timing, blockers, dependencies, milestones, or cross-team follow-up should bring in `Launch & Delivery Coordinator`.
 
 ### Rule 4
 
-Light code tasks should only happen after the product intent is explicit. In practice:
+Any request about recommendation, search, content strategy, hashtag strategy, creator-consumer loops, or distribution efficiency should bring in `Content & Recommendation Strategist`.
 
-- `PRD Architect` or `PM Orchestrator` defines scope
+### Rule 5
+
+Any request about retention, playback, upload funnel, publish funnel, KPI movement, or instrumentation should bring in `Metrics Analyst`.
+
+### Rule 6
+
+Light code or SQL tasks should only happen after the product intent is explicit. In practice:
+
+- `PM Orchestrator` or `PRD Architect` defines scope
 - `Technical Copilot` validates or implements the small technical task
-- `Delivery Coordinator` records the result if it affects execution
+- `Launch & Delivery Coordinator` records the result if it affects execution
 
-## Standard multi-agent workflows
+### Rule 7
 
-### Opportunity discovery
+Any request that produces a new product decision, roadmap change, metric definition, launch commitment, or platform lesson must end with a `Memory Curator` update.
 
-1. Trend Researcher
-2. Feedback Synthesizer
-3. Metrics Analyst
-4. Prioritization Planner
-5. PM Orchestrator
-
-Use for new market opportunities, feature bets, and strategic scanning.
+## Standard workflows
 
 ### New feature definition
 
 1. PM Orchestrator
 2. PRD Architect
-3. UX Reviewer
-4. Technical Copilot
-5. Delivery Coordinator
-6. Memory Curator
-
-Use for a new feature, redesign, or scope definition that needs execution alignment.
-
-### Iteration planning
-
-1. Feedback Synthesizer
-2. Metrics Analyst
-3. Prioritization Planner
-4. Delivery Coordinator
+3. Technical Copilot
+4. Launch & Delivery Coordinator
 5. Memory Curator
 
-Use for backlog grooming, sprint planning, or release reshaping.
+Use for new features, redesigns, or scope definition that need execution alignment.
 
-### Growth experiment cycle
+### Recommendation or content iteration
 
-1. Metrics Analyst
-2. Experiment Designer
-3. UX Reviewer
-4. Technical Copilot
-5. PM Orchestrator
+1. Insight Synthesizer
+2. Metrics Analyst
+3. Content & Recommendation Strategist
+4. PRD Architect
+5. Memory Curator
 
-Use for onboarding, retention, activation, or conversion optimization.
+Use for search and recommendation tuning, hashtag strategy, creator supply issues, content distribution, or consumption quality improvements.
 
-### Team switch onboarding
+### Launch readiness
+
+1. Launch & Delivery Coordinator
+2. Metrics Analyst
+3. Technical Copilot
+4. PM Orchestrator
+5. Memory Curator
+
+Use for iOS, Android, or Web release readiness, milestone tracking, blocker clearing, and risk control.
+
+### Feedback to roadmap
+
+1. Insight Synthesizer
+2. Metrics Analyst
+3. Prioritization Planner
+4. PM Orchestrator
+5. Memory Curator
+
+Use for backlog reshaping, release re-planning, or turning user signals into product priorities.
+
+### Cross-team or cross-model continuation
 
 1. Memory Curator
 2. PM Orchestrator
-3. Trend Researcher
-4. Delivery Coordinator
 
-Use when you join a new team and need fast situational awareness.
+Use when you change teams, models, workspaces, or open a new thread and need fast continuity.
+
+### Optional growth cycle
+
+1. Metrics Analyst
+2. Experiment Designer
+3. ASO & Growth Strategist
+4. PM Orchestrator
+
+Use for activation, conversion, app store discoverability, or structured growth testing.
 
 ## Standard input packet
 
@@ -168,25 +287,28 @@ Every substantial request should provide or infer:
 - objective
 - background
 - target user
+- product stage or funnel stage
 - success metric
 - deadline or cadence
 - constraints
 - source materials
 - desired output format
 
-If the packet is incomplete, `PM Orchestrator` should state assumptions explicitly instead of waiting unless the missing information is high risk.
+If the packet is incomplete, `PM Orchestrator` should state assumptions explicitly instead of waiting, unless the missing information is high risk.
 
 ## Standard output packet
 
-Every agent output should end with:
+Every substantial output should include:
 
+- lead agent
+- support agents
 - conclusion
 - assumptions
 - open questions
 - next actions
 - memory updates required
 
-This makes synthesis and handoff cheap.
+This keeps routing, synthesis, and handoff cheap.
 
 ## Suggested default behavior
 
@@ -194,25 +316,31 @@ When you open a new session, ask the system to:
 
 1. read global memory
 2. read current team context
-3. read current handoff
-4. classify the request
-5. select the lead agent and optional support agents
-6. answer in the output packet structure
+3. read history highlights
+4. read current handoff
+5. classify the request
+6. select the lead agent and optional support agents
+7. answer in the output packet structure
+
+In Codex, this can happen from local files. In other clients, the same logic should run from the embedded context pack.
 
 ## Scope boundary
 
 This cluster is optimized for:
 
 - internet product management
-- research and synthesis work
+- multi-platform launch work
+- recommendation and content strategy work
+- research and synthesis
 - strategy and prioritization
 - PRD and delivery coordination
-- small technical tasks
+- small analytics and technical tasks
 
 It is not optimized for:
 
 - heavy software implementation
 - deep data science work
 - pixel-perfect design production
+- full-time channel operations or social media execution
 
-Those should be escalated into dedicated engineering or design workflows when needed.
+Those should be escalated into dedicated workflows when needed.
