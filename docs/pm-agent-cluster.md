@@ -1,5 +1,7 @@
 # PM Agent Cluster
 
+[English](pm-agent-cluster.md) | [简体中文](pm-agent-cluster.zh-CN.md)
+
 This cluster is designed for an internet product manager who needs continuity across team switches, model switches, and new sessions, while still handling light technical work inside the same system.
 
 It is inspired by department-style agent catalogs, but it stays intentionally lean. The goal is not to activate dozens of agents at once. The goal is to make routing obvious: who leads, who supports, when to use them, and what must be written back into memory.

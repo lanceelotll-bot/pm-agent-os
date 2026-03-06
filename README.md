@@ -63,7 +63,8 @@ Do not rely on chat history as the source of truth. Treat chat as execution spac
 
 ## Files in this workspace
 
-- `docs/pm-agent-cluster.md`: the PM-oriented agent cluster design
+- `docs/pm-agent-cluster.md`: the PM-oriented agent cluster design (English)
+- `docs/pm-agent-cluster.zh-CN.md`: the PM-oriented agent cluster design (Chinese)
 - `docs/platform-adapters.md`: platform-specific startup guidance
 - `templates/personal-memory.template.md`: durable self-context template
 - `templates/team-context.template.md`: per-team context template

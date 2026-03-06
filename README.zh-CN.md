@@ -84,7 +84,8 @@ docs/
 
 ## 仓库中的关键文件
 
-- `docs/pm-agent-cluster.md`：产品经理 agent 集群设计
+- `docs/pm-agent-cluster.md`：产品经理 agent 集群设计（英文版）
+- `docs/pm-agent-cluster.zh-CN.md`：产品经理 agent 集群设计（中文版）
 - `docs/platform-adapters.md`：不同平台的接入方式
 - `docs/quick-start.zh-CN.md`：最小白快速开始
 - `docs/user-guide.zh-CN.md`：给非技术背景用户的使用说明
