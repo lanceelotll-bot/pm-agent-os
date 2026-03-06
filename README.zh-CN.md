@@ -1,6 +1,19 @@
 # PM Agent OS
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [文档导航](docs/README.zh-CN.md) | [最小白快速开始](docs/quick-start.zh-CN.md) | [非技术背景使用说明](docs/user-guide.zh-CN.md) | [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
+**语言**
+
+- [English](README.md)
+- [简体中文](README.zh-CN.md)
+- [中文导航](docs/README.zh-CN.md)
+- [English Docs](docs/README.md)
+
+**推荐入口**
+
+- [最小白快速开始](docs/quick-start.zh-CN.md)
+- [非技术背景使用说明](docs/user-guide.zh-CN.md)
+- [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
+
+**补充文档**
 
 这是一个面向产品经理的可复用工作系统，目标是在频繁切换 team、切换会话、切换模型平台时，仍然保持对话、记忆和执行的连续性。
 
@@ -84,13 +97,13 @@ docs/
 
 ## 文档入口
 
-- [文档导航](docs/README.zh-CN.md)：所有文档的总入口
-- [最小白快速开始](docs/quick-start.zh-CN.md)：最快上手路径
-- [非技术背景使用说明](docs/user-guide.zh-CN.md)：系统原理和使用方式
-- [PM Agent 集群设计（中文版）](docs/pm-agent-cluster.zh-CN.md)：部门视图和执行场景图
-- [PM Agent Cluster (English)](docs/pm-agent-cluster.md)：英文版集群设计
+- [最小白快速开始](docs/quick-start.zh-CN.md)：第一次使用优先看这个
+- [非技术背景使用说明](docs/user-guide.zh-CN.md)：想理解原理和使用方式时看这个
+- [PM Agent 集群设计（中文版）](docs/pm-agent-cluster.zh-CN.md)：想理解角色分工和执行场景时看这个
+- [文档导航](docs/README.zh-CN.md)：其他补充文档入口
 - [平台适配说明](docs/platform-adapters.md)：不同平台如何接入
 - [跨平台记忆协议](docs/cross-platform-memory-protocol.md)：连续性协议说明
+- [PM Agent Cluster (English)](docs/pm-agent-cluster.md)：英文版集群设计
 
 ## 脚本与模板
 

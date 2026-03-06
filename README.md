@@ -1,6 +1,19 @@
 # PM Agent OS
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [Docs Hub](docs/README.md) | [Quick Start (CN)](docs/quick-start.zh-CN.md) | [User Guide](docs/user-guide.zh-CN.md) | [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
+**Language**
+
+- [English](README.md)
+- [简体中文](README.zh-CN.md)
+- [中文导航](docs/README.zh-CN.md)
+- [English Docs](docs/README.md)
+
+**Recommended entry points**
+
+- [Quick Start (CN)](docs/quick-start.zh-CN.md)
+- [User Guide (CN)](docs/user-guide.zh-CN.md)
+- [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
+
+**Supporting docs**
 
 This workspace contains a reusable operating model for a product manager who may switch teams often and still wants continuity across conversations, memory, and execution.
 
@@ -63,13 +76,13 @@ Do not rely on chat history as the source of truth. Treat chat as execution spac
 
 ## Documentation entry points
 
-- [Docs Hub](docs/README.md): top-level index for the docs folder
-- [Quick Start (CN)](docs/quick-start.zh-CN.md): fastest path to start using the system
+- [Quick Start (CN)](docs/quick-start.zh-CN.md): best first stop for use
 - [User Guide (CN)](docs/user-guide.zh-CN.md): plain-language explanation
-- [PM Agent Cluster (English)](docs/pm-agent-cluster.md): English cluster design
-- [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md): Chinese cluster design
+- [PM Agent Cluster (English)](docs/pm-agent-cluster.md): cluster design and execution scenarios
+- [Docs Hub](docs/README.md): index for the rest of the docs
 - [Platform adapters](docs/platform-adapters.md): platform-specific startup guidance
 - [Cross-platform memory protocol](docs/cross-platform-memory-protocol.md): continuity protocol
+- [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md): Chinese cluster design
 
 ## Scripts and templates
 
