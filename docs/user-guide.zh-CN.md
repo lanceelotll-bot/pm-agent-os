@@ -128,49 +128,40 @@ AI 每次开始工作前，先看这几张卡，再继续做事。
 
 ## 同平台和跨平台有什么区别
 
-### 同平台
+可以直接用一句话理解：
 
-比如一直在 Codex / GPT 的同一类工作区里用。
+- `Codex / 可读本地文件的工作区`：更接近“自己去读你的工作档案”
+- `Claude / Kimi / 千问 / GPT 客户端或网页端`：更接近“你把工作档案递给它”
 
-这种情况更容易做到接近自动，因为系统可以默认先读取这些固定文件。
+也就是说：
 
-也就是说，你开一个新会话时，它更容易自动知道应该先看什么。
+- 在 Codex 里，通常可以直接读取本地状态文件，所以更适合自动加载和本地回写
+- 在其他客户端或网页端里，当前 baseline 默认不能直接读取你电脑上的本地文件
+- 它们之所以还能继续工作，是因为你贴入了压缩后的上下文包，不是因为它们自己会去读盘
+- 如果你希望这些外部客户端也能直接读文件，需要再接一层 wrapper、本地连接器或类似 MCP 的方案
 
-### 跨平台
-
-比如从 Codex 切到 Kimi，或者切到 Claude。
-
-这种情况通常没有办法天然自动读取你本地的文件，所以一般要多做一步：
-
-把 context pack 手动贴给新模型，或者以后接一个自动化工具来完成。
-
-但要注意，这里多做的一步，也只是“提供当前状态”，不是“重讲一遍所有历史”。
-
-### 不同平台的真实限制
-
-这里最好不要理想化，直接按真实能力理解：
-
-- Codex 这类能接触本地工作区的环境，更适合读取和更新本地文件
-- Kimi、Claude、千问、GPT 这类网页端，通常不能直接读取你电脑上的本地路径
-- 网页端模型一般也不能直接回写你的本地 `memory.md`、`team-context.md`、`handoff`
-- 如果你希望网页端模型继续工作，就要把上下文内容直接贴给它，或者上传一个整理好的上下文文件
-- 如果你希望真正更新本地状态，最好回到 Codex 这类本地可写环境里完成
+所以跨平台时，多做的一步不是“重讲一遍历史”，而只是“把最新状态递过去”
 
 ## 用户成本最低的用法
 
 如果你追求最低操作成本，不要自己找文件、不要手工拼提示词。
 
-直接用仓库里的脚本：
+直接用仓库里的脚本，格式统一是：
 
 ```bash
 cd /Users/wamg/Documents/monthly
-./scripts/pm_prompt.py --platform codex --mode resume --copy
-./scripts/pm_prompt.py --platform kimi --mode resume --copy
-./scripts/pm_prompt.py --platform claude --mode resume --copy
-./scripts/pm_prompt.py --platform qwen --mode resume --copy
+./scripts/pm_prompt.py --platform <平台> --mode resume --copy
 ```
 
-这几条命令会直接生成并复制一段“可粘贴恢复提示词”到剪贴板。
+其中 `<平台>` 可以替换成：
+
+- `codex`
+- `claude`
+- `kimi`
+- `qwen`
+- `gpt`
+
+这条命令会直接生成并复制一段“可粘贴恢复提示词”到剪贴板。
 
 你只需要：
 
@@ -178,23 +169,11 @@ cd /Users/wamg/Documents/monthly
 2. 打开目标模型
 3. 粘贴
 
-### 收尾时怎么做
-
-如果你想在结束工作时尽量低成本地更新状态，也可以直接用：
+收尾时也是同样逻辑：
 
 ```bash
 cd /Users/wamg/Documents/monthly
-./scripts/pm_prompt.py --platform codex --mode close --copy
-```
-
-然后把它贴给 Codex。
-
-如果你是在 Claude、Kimi、千问里工作，也可以用对应平台：
-
-```bash
-./scripts/pm_prompt.py --platform claude --mode close --copy
-./scripts/pm_prompt.py --platform kimi --mode close --copy
-./scripts/pm_prompt.py --platform qwen --mode close --copy
+./scripts/pm_prompt.py --platform <平台> --mode close --copy
 ```
 
 区别是：
