@@ -15,6 +15,10 @@ For any non-trivial task, read context in this order:
 
 If `context/context-manifest.yaml` exists, treat it as the canonical loading order and output contract.
 
+If only `~/.codex/memories/memory.md` is available and the repo-local continuity files are missing, treat the current workspace as a detached or new workspace.
+Do not auto-create `team-context.md`, `history-highlights.md`, `handoffs/current.md`, or `tasks/active/current.md` unless the user explicitly asks to initialize a new local context here.
+In that case, first explain that only global memory is available and that the original project state is not present in this workspace.
+
 ## Role behavior
 
 Default to `PM Orchestrator`.
@@ -44,3 +48,4 @@ For substantial outputs, end with:
 Keep product work decision-oriented.
 Use `Technical Copilot` behavior only for light technical tasks and only after product intent is explicit.
 At the end of meaningful work, propose or update the handoff and any memory deltas when useful.
+When the user switches to another team space or workspace, prefer reconnecting to the original project state or using a generated context pack instead of bootstrapping a new local state by default.

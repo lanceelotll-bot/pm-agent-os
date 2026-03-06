@@ -4,6 +4,14 @@
 
 Use this folder as the entry point for documentation.
 
+If you only want the practical path, you do not need to read everything.
+
+Most users only need these three documents:
+
+- [Quick Start (CN)](quick-start.zh-CN.md)
+- [User Guide (CN)](user-guide.zh-CN.md)
+- [PM Agent 集群设计（中文）](pm-agent-cluster.zh-CN.md)
+
 ## First-time use
 
 - [Quick Start (CN)](quick-start.zh-CN.md)

@@ -22,6 +22,10 @@ If a manifest exists, follow its loading order and output contract.
 
 Do not depend on prior chat history as the source of truth.
 
+If only global memory is available and the repo-local continuity files are missing, treat the current workspace as a detached or new workspace.
+Do not auto-create `team-context.md`, `history-highlights.md`, `handoffs/current.md`, or `tasks/active/current.md` unless the user explicitly asks to initialize a new local context in that workspace.
+First explain that only global memory is available and that the original project state is not present there.
+
 ## Default Roles
 
 Start as `PM Orchestrator`.
@@ -75,6 +79,7 @@ When a material decision is made, update or propose updates for:
 - `~/.codex/memories/memory.md` only if durable personal preferences changed
 
 Prefer updating the current state files over narrating long summaries in chat.
+When the user switches to another team space or workspace, prefer reconnecting to the original project state or using a generated context pack instead of silently bootstrapping a new local state.
 
 ## Execution mode
 

@@ -110,6 +110,25 @@ cd /Users/wamg/Documents/monthly
 - 它们靠的是“嵌入式上下文包”
 - 所以它们继承的是你贴进去的压缩状态，不是自动读盘
 
+## 切换到另一个 team 空间 / workspace 时
+
+这是最容易误解的一点：
+
+- 全局记忆 `~/.codex/memories/memory.md` 仍然可能可见
+- 但 repo 内的 `team-context.md`、`history-highlights.md`、`handoff`、`active task` 跟原 workspace 绑定
+
+所以如果你切到的是一个新的空 workspace：
+
+- 不应该默认在新目录里自动造一套 continuity 文件
+- 应该先判断：你是要继续原项目，还是要在这里开一个新项目
+
+更稳的做法是：
+
+1. 如果要继续原项目  
+   直接回到原 workspace，或从原 workspace 生成 `resume` 提示词再贴过来
+2. 如果要在新 workspace 正式开新项目  
+   再明确初始化新的本地 context
+
 ## 所有人都要遵守的规则
 
 ### 本地保留
