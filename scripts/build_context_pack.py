@@ -7,14 +7,7 @@ import argparse
 from pathlib import Path
 from typing import Iterable
 
-
-SECTION_SPECS = [
-    ("Global Memory", Path("~/.codex/memories/memory.md").expanduser()),
-    ("Team Context", Path("context/team-context.md")),
-    ("History Highlights", Path("context/history-highlights.md")),
-    ("Current Handoff", Path("handoffs/current.md")),
-    ("Active Task", Path("tasks/active/current.md")),
-]
+from state_files import SECTION_SPECS
 
 
 def read_text(path: Path) -> str | None:
@@ -34,6 +27,7 @@ def build_header(platform: str) -> str:
         "codex": "Read this context pack and follow the workspace continuity contract.",
         "claude": "Read this context pack and focus on critique, structure, and edge-case review.",
         "kimi": "Read this context pack and focus on long-document digestion and Chinese synthesis.",
+        "qwen": "Read this context pack and focus on practical Chinese execution and summarization.",
     }.get(platform_name, "Read this context pack before handling the task.")
     return "\n".join(
         [
@@ -67,7 +61,7 @@ def main() -> int:
     parser.add_argument(
         "--platform",
         default="generic",
-        choices=["generic", "gpt", "codex", "claude", "kimi"],
+        choices=["generic", "gpt", "codex", "claude", "kimi", "qwen"],
         help="tailor the header for the target platform",
     )
     parser.add_argument(

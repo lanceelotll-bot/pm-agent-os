@@ -6,22 +6,16 @@ from __future__ import annotations
 import argparse
 import subprocess
 import sys
-from pathlib import Path
 
-
-WORKSPACE = Path(__file__).resolve().parent.parent
-GLOBAL_MEMORY = Path("~/.codex/memories/memory.md").expanduser()
-TEAM_CONTEXT = WORKSPACE / "context" / "team-context.md"
-HANDOFF = WORKSPACE / "handoffs" / "current.md"
-ACTIVE_TASK = WORKSPACE / "tasks" / "active" / "current.md"
-
-SECTION_SPECS = [
-    ("Global Memory", GLOBAL_MEMORY),
-    ("Team Context", TEAM_CONTEXT),
-    ("History Highlights", WORKSPACE / "context" / "history-highlights.md"),
-    ("Current Handoff", HANDOFF),
-    ("Active Task", ACTIVE_TASK),
-]
+from state_files import (
+    ACTIVE_TASK,
+    GLOBAL_MEMORY,
+    HANDOFF,
+    HISTORY_HIGHLIGHTS,
+    SECTION_SPECS,
+    TEAM_CONTEXT,
+    WORKSPACE,
+)
 
 
 def read_text(path: Path) -> str | None:
@@ -74,7 +68,7 @@ def build_codex_resume_prompt() -> str:
             "",
             str(GLOBAL_MEMORY),
             str(TEAM_CONTEXT),
-            str(WORKSPACE / "context" / "history-highlights.md"),
+            str(HISTORY_HIGHLIGHTS),
             str(HANDOFF),
             str(ACTIVE_TASK),
             "",
@@ -128,7 +122,7 @@ def build_codex_close_prompt() -> str:
             "请先读取并在必要时更新以下文件：",
             "",
             str(HANDOFF),
-            str(WORKSPACE / "context" / "history-highlights.md"),
+            str(HISTORY_HIGHLIGHTS),
             str(TEAM_CONTEXT),
             str(GLOBAL_MEMORY),
             "",

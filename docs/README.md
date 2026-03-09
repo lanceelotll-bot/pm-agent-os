@@ -25,6 +25,8 @@ Most users only need these three documents:
   - Why continuity should rely on local state files instead of vendor-native memory
 - [Platform adapters](platform-adapters.md)
   - How Codex, Claude, Kimi, Qwen, and GPT differ in startup mode
+- [Backup and migration](backup-and-migration.md)
+  - How to snapshot, restore, and move the latest live state across devices and workspaces
 
 ## Agent cluster design
 

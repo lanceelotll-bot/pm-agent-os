@@ -27,6 +27,8 @@
   - 解释 Codex、Claude、Kimi、Qwen、GPT 的接入差异
 - [团队接入指南](team-onboarding.zh-CN.md)
   - 解释其他用户如何继承这套设计，以及 skill 在哪里是可选增强
+- [备份与迁移](backup-and-migration.zh-CN.md)
+  - 解释如何做本地快照、恢复、换设备迁移，以及哪些部分还没自动化
 
 ## Agent 集群设计
 

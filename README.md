@@ -12,6 +12,7 @@
 - [Quick Start (CN)](docs/quick-start.zh-CN.md)
 - [User Guide (CN)](docs/user-guide.zh-CN.md)
 - [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
+- [Backup and migration](docs/backup-and-migration.md)
 
 **Supporting docs**
 
@@ -80,6 +81,7 @@ Do not rely on chat history as the source of truth. Treat chat as execution spac
 - [User Guide (CN)](docs/user-guide.zh-CN.md): plain-language explanation
 - [PM Agent Cluster (English)](docs/pm-agent-cluster.md): cluster design and execution scenarios
 - [Docs Hub](docs/README.md): index for the rest of the docs
+- [Backup and migration](docs/backup-and-migration.md): protect and restore the latest live state
 - [Platform adapters](docs/platform-adapters.md): platform-specific startup guidance
 - [Cross-platform memory protocol](docs/cross-platform-memory-protocol.md): continuity protocol
 - [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md): Chinese cluster design
@@ -88,6 +90,8 @@ Do not rely on chat history as the source of truth. Treat chat as execution spac
 
 - `scripts/pm_prompt.py`: generate and copy resume/close prompts
 - `scripts/build_context_pack.py`: export the current state into one portable prompt pack
+- `scripts/snapshot_state.py`: create a local snapshot of the live state files
+- `scripts/restore_state.py`: restore live state from a snapshot for migration or recovery
 - `templates/personal-memory.template.md`: durable self-context template
 - `templates/team-context.template.md`: per-team context template
 - `templates/task-brief.template.md`: standard task packet

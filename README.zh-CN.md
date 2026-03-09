@@ -13,6 +13,7 @@
 - [非技术背景使用说明](docs/user-guide.zh-CN.md)
 - [PM Agent 集群设计（中文）](docs/pm-agent-cluster.zh-CN.md)
 - [团队接入指南](docs/team-onboarding.zh-CN.md)
+- [备份与迁移](docs/backup-and-migration.zh-CN.md)
 
 这是一个面向产品经理的可复用工作系统，目标是在频繁切换 team、切换会话、切换模型平台时，仍然保持对话、记忆和执行的连续性。
 
@@ -100,6 +101,7 @@ docs/
 - [非技术背景使用说明](docs/user-guide.zh-CN.md)：想理解原理和使用方式时看这个
 - [PM Agent 集群设计（中文版）](docs/pm-agent-cluster.zh-CN.md)：想理解角色分工和执行场景时看这个
 - [团队接入指南](docs/team-onboarding.zh-CN.md)：想让其他人继承这套设计时看这个
+- [备份与迁移](docs/backup-and-migration.zh-CN.md)：想防止状态丢失、换设备或恢复快照时看这个
 - [文档导航](docs/README.zh-CN.md)：其他补充文档入口
 - [平台适配说明](docs/platform-adapters.md)：不同平台如何接入
 - [跨平台记忆协议](docs/cross-platform-memory-protocol.md)：连续性协议说明
@@ -109,6 +111,8 @@ docs/
 
 - `scripts/pm_prompt.py`：一键生成并复制恢复/收尾提示词
 - `scripts/build_context_pack.py`：把当前状态导出为一个可跨平台使用的上下文包
+- `scripts/snapshot_state.py`：把当前 live state 打成一个本地快照
+- `scripts/restore_state.py`：从快照恢复 live state，适合换设备或跨目录迁移
 - `templates/personal-memory.template.md`：个人长期记忆模板
 - `templates/personal-memory.zh-CN.template.md`：个人长期记忆中文填写模板
 - `templates/team-context.template.md`：team 上下文模板

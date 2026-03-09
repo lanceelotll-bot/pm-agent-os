@@ -181,6 +181,26 @@ cd /Users/wamg/Documents/monthly
 
 如果你只打算记两条，就记这两条。
 
+## 如果你怕状态丢失
+
+再记一条命令：
+
+```bash
+cd /Users/wamg/Documents/monthly
+./scripts/snapshot_state.py
+```
+
+它会把 `memory / team-context / history-highlights / handoff / active task` 打成一个本地快照。
+
+如果你要换设备或恢复快照，再用：
+
+```bash
+./scripts/restore_state.py --snapshot state-backups/latest
+```
+
+更完整的说明看：
+[备份与迁移](backup-and-migration.zh-CN.md)
+
 ## 最容易理解的一句话
 
 这个系统不是让 AI 记住你所有聊天。

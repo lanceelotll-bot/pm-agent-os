@@ -8,3 +8,6 @@ tasks/active/current.md
 
 # Local exports
 exports/
+
+# Local state snapshots
+state-backups/
